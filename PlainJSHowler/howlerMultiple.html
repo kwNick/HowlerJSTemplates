@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Howler Multi-Sound Example</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+</head>
+<body>
+  <h2>🎵 Howler Multi-Sound Example</h2>
+  <button id="playMusic">Play Music</button>
+  <!-- <button id="stopMusic">Stop Music</button> -->
+  <button id="playClick">Click Sound</button>
+  <button id="playAlert">Alert Sound</button>
+
+  <script>
+    // Create separate Howl instances for different sounds
+    const sounds = {
+      music: new Howl({
+        // src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'],
+        src: ['./music/drive-at-sunset_preview.mp3'],
+        volume: 0.4,
+        loop: true
+      }),
+      click: new Howl({
+        src: ['./music/neon-alley_preview.mp3'],
+        volume: 1.0
+      }),
+      alert: new Howl({
+        src: ['./music/olympic_preview.mp3'],
+        volume: 0.8
+      })
+    };
+
+    // Button handlers
+    document.getElementById('playMusic').addEventListener('click', () => { sounds.music.playing() ? sounds.music.pause() : sounds.music.play(); console.log("Music: "+(sounds.music.playing() ? "playing" : "paused"));});
+    // document.getElementById('stopMusic').addEventListener('click', () => sounds.music.stop());
+    document.getElementById('playClick').addEventListener('click', () => { sounds.click.playing() ? sounds.click.pause() : sounds.click.play(); console.log("Click: "+(sounds.click.playing() ? "playing" : "paused"));});
+    document.getElementById('playAlert').addEventListener('click', () => { sounds.alert.playing() ? sounds.alert.pause() : sounds.alert.play(); console.log("Alert: "+(sounds.alert.playing() ? "playing" : "paused"));});
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Howler.js Example</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+</head>
+<body>
+  <button id="play">Play Sound</button>
+  <button id="pause">Pause</button>
+  <button id="stop">Stop</button>
+
+  <script>
+    // Create a sound instance
+    const sound = new Howl({
+      src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'],
+      volume: 0.6,
+      loop: false,
+      onplay: () => console.log('Playing...'),
+      onend: () => console.log('Finished!')
+    });
+
+    // Button handlers
+    document.getElementById('play').addEventListener('click', () => sound.play());
+    document.getElementById('pause').addEventListener('click', () => sound.pause());
+    document.getElementById('stop').addEventListener('click', () => sound.stop());
+  </script>
+</body>
+</html>
