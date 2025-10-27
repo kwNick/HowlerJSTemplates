@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Howler Fade Example</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+</head>
+<body>
+  <h2>🎵 Howler Fade Example</h2>
+  <button id="fadeIn">Fade In Music</button>
+  <button id="fadeOut">Fade Out Music</button>
+  <button id="switch">Switch Track</button>
+
+  <script>
+    // Two background tracks
+    const tracks = {
+      calm: new Howl({
+        src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'],
+        volume: 0,
+        loop: true
+      }),
+      intense: new Howl({
+        src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'],
+        volume: 0,
+        loop: true
+      })
+    };
+
+    let current = tracks.calm;
+
+    document.getElementById('fadeIn').addEventListener('click', () => {
+      if (!current.playing()) current.play();
+      current.fade(0, 0.6, 2000); // fade from 0 → 0.6 over 2s
+    });
+
+    document.getElementById('fadeOut').addEventListener('click', () => {
+      current.fade(current.volume(), 0, 2000); // fade out over 2s
+      setTimeout(() => current.stop(), 2100);
+    });
+
+    document.getElementById('switch').addEventListener('click', () => {
+      // fade out current and fade in the other
+      const next = current === tracks.calm ? tracks.intense : tracks.calm;
+
+      next.play();
+      next.fade(0, 0.6, 2000);
+      current.fade(current.volume(), 0, 2000);
+
+      // stop the old one after fade completes
+      setTimeout(() => current.stop(), 2100);
+      current = next;
+    });
+  </script>
+</body>
+</html>

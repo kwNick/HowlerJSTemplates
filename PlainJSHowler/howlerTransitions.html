@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Howler.js Fade Example</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+</head>
+<body>
+  <button id="start">Start Music</button>
+  <button id="sceneChange">Scene Change → Fade Out & In</button>
+  <button id="stop">Stop Music</button>
+
+  <script>
+    const bg = new Howl({
+      src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'],
+      volume: 0,           // start muted for fade-in
+      loop: true,
+      onplay: () => console.log('Background music started'),
+      onend: () => console.log('Background music ended'),
+      onfade: () => console.log('Fade completed')
+    });
+
+    document.getElementById('start').addEventListener('click', () => {
+      bg.play();
+      bg.fade(0, 1, 3000);   // fade from volume 0 → 1 over 3000ms (3s)
+    });
+
+    document.getElementById('sceneChange').addEventListener('click', () => {
+      // Fade out, then change scene (simulate) and fade in again
+      bg.fade(1, 0, 2000, /* id omitted means all */).once('fade', () => {
+        console.log('Fade out done. Changing scene...');
+        // Here you might switch track or do something else...
+        // For example, restart volume back up:
+        bg.fade(0, 1, 2000);
+      });
+    });
+
+    document.getElementById('stop').addEventListener('click', () => {
+      // Fade out then stop the music
+      bg.fade(bg.volume(), 0, 2000).once('fade', () => {
+        bg.stop();
+        console.log('Music stopped after fade out');
+      });
+    });
+  </script>
+</body>
+</html>
