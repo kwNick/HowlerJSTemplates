@@ -24,6 +24,19 @@ const SoundBoard = () => {
       }),
     };
 
+    // const sound = new Howl({
+    // src: ['effect.mp3'],
+    // sprite: {
+    //   jump: [0, 1000],   // Play 1 second from start
+    //   coin: [2000, 800]  // Play 0.8 sec from 2s mark
+    //   }
+    // });
+
+    // // later
+    // sound.play('jump');
+    // sound.play('coin');
+    // 🎮 Sound Sprites let you load a single audio file containing multiple effects — great for performance in games.
+
     return () => {
       // cleanup
       Object.values(sounds.current ?? {}).forEach((sound) => sound.unload());
